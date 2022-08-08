@@ -12,7 +12,7 @@ function getComputerChoice () {
     return computerChoice
 }
 
-function playRound (playerSelection, computerSelection) {
+/**function playRound (playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         outcome = "Draw"
     } else if (playerSelection === "ROCK") {
@@ -37,12 +37,32 @@ function playRound (playerSelection, computerSelection) {
         outcome = "Please insert correct parameters"
     }
     return outcome
+}*/
+
+const getResults = (playerSelection, computerSelection) => {
+    switch (playerSelection + computerSelection) {
+        case "SCISSORSPAPER":
+        case "ROCKSCISSORS":
+        case "PAPERROCK":
+            outcome = "You win"
+            break
+        case "PAPERSCISSORS":
+        case "SCISSORSROCK":
+        case "ROCKPAPER":
+            outcome = "You lose"
+            break
+        case "PAPERPAPER":
+        case "SCISSORSSCISSORS":
+        case "ROCKROCK":
+            outcome = "Draw"
+            break
+        default:
+            outcome = "Please insert correct parameters"
+    }
+    return outcome
 }
 
 
-
-
-let outcome
 let input = prompt("Select your weapon!", "");
 let playerSelection = input.toUpperCase();
 const computerSelection = getComputerChoice();
