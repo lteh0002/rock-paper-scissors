@@ -69,9 +69,9 @@ const playRound = (playerSelection, computerSelection) => {
 
 function checkInput(selection) {
     if ((selection !== "ROCK") && (selection !== "PAPER") && (selection !== "SCISSORS")) {
-        prompt("Please insert only rock, paper or scissors")
+        alert("Please insert only rock, paper or scissors")
     } else if ((selection == null) || (selection == undefined)) {
-        prompt("Please insert only rock, paper or scissors")
+        alert("Please insert only rock, paper or scissors")
     } else {
         return playRound(selection, getComputerChoice());
     }
@@ -83,16 +83,17 @@ function game() {
         playerSelection = input.toUpperCase();
         const computerSelection = getComputerChoice();
         console.log(checkInput(playerSelection));
-        console.log(playerScore);
-        console.log(computerScore);
+       
     }
 }
 
-if (playerScore > computerScore) {
-    console.log("Player wins");
-} else {
-    console.log("Computer win!")
+function scoreTracker (playerScore, computerScore) {
+    if (playerScore > computerScore) {
+        console.log("Player wins");
+    } else {
+        console.log("Computer win!")
+    }
 }
 
 game()
-
+scoreTracker(playerScore, computerScore)
