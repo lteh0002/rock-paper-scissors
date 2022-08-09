@@ -12,6 +12,9 @@ function getComputerChoice () {
     return computerChoice
 }
 
+let playerScore = 0
+let computerScore = 0
+
 /**function playRound (playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         outcome = "Draw"
@@ -45,11 +48,13 @@ const playRound = (playerSelection, computerSelection) => {
         case "ROCKSCISSORS":
         case "PAPERROCK":
             outcome = "You win"
+            playerScore++
             break
         case "PAPERSCISSORS":
         case "SCISSORSROCK":
         case "ROCKPAPER":
             outcome = "You lose"
+            computerScore++
             break
         case "PAPERPAPER":
         case "SCISSORSSCISSORS":
@@ -62,16 +67,31 @@ const playRound = (playerSelection, computerSelection) => {
     return outcome
 }
 
+function checkInput(selection) {
+    if ((selection !== "ROCK") && (selection !== "PAPER") && (selection !== "SCISSORS")) {
+        prompt("Please insert only rock, paper or scissors")
+    } else if ((selection == null) || (selection == undefined)) {
+        prompt("Please insert only rock, paper or scissors")
+    } else {
+        return playRound(selection, getComputerChoice());
+    }
+}
+
 function game() {
     for (let i = 0; i < 5; i++) {
         let input = prompt("Select your weapon!", "");
-        let playerSelection = input.toUpperCase();
+        playerSelection = input.toUpperCase();
         const computerSelection = getComputerChoice();
-        playRound(playerSelection, computerSelection)
-        console.log(playerSelection)
-        console.log(computerSelection)
-        console.log(playRound(playerSelection, computerSelection))
+        console.log(checkInput(playerSelection));
+        console.log(playerScore);
+        console.log(computerScore);
     }
+}
+
+if (playerScore > computerScore) {
+    console.log("Player wins");
+} else {
+    console.log("Computer win!")
 }
 
 game()
