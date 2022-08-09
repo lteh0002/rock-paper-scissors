@@ -39,7 +39,7 @@ function getComputerChoice () {
     return outcome
 }*/
 
-const getResults = (playerSelection, computerSelection) => {
+const playRound = (playerSelection, computerSelection) => {
     switch (playerSelection + computerSelection) {
         case "SCISSORSPAPER":
         case "ROCKSCISSORS":
@@ -62,11 +62,17 @@ const getResults = (playerSelection, computerSelection) => {
     return outcome
 }
 
+function game() {
+    for (let i = 0; i < 5; i++) {
+        let input = prompt("Select your weapon!", "");
+        let playerSelection = input.toUpperCase();
+        const computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection)
+        console.log(playerSelection)
+        console.log(computerSelection)
+        console.log(playRound(playerSelection, computerSelection))
+    }
+}
 
-let input = prompt("Select your weapon!", "");
-let playerSelection = input.toUpperCase();
-const computerSelection = getComputerChoice();
+game()
 
-console.log(playerSelection)
-console.log(computerSelection)
-console.log(getResults(playerSelection, computerSelection))
