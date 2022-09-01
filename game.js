@@ -1,6 +1,15 @@
+let computerChoice
+let playerChoice
+let computerScore = 0
+let playerScore = 0
+
+const playerResult = document.querySelector("#playerScore")
+const computerResult = document.querySelector("#computerScore")
+const output = document.querySelector("#output")
+const result = document.querySelector("#result")
+
 function getComputerChoice () {
     let x = Math.floor((Math.random() * 3) + 1);
-
     if(x === 1) {
         computerChoice = "ROCK"
     } else if (x === 2) {
@@ -8,92 +17,83 @@ function getComputerChoice () {
     } else {
         computerChoice = "SCISSORS"
     }
-
     return computerChoice
 }
 
-let playerScore = 0
-let computerScore = 0
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        playerChoice = button.id
+        getComputerChoice()
+        playRound(playerChoice,computerChoice)
+        playerResult.textContent = `Your score: ${playerScore}`;
+        computerResult.textContent = `Computer score: ${computerScore}`;
+        checkWinner()
+    })
+})
 
-/**function playRound (playerSelection, computerSelection) {
+
+
+function playRound (playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         outcome = "Draw"
+        output.textContent = `It's a Draw!`
     } else if (playerSelection === "ROCK") {
         if (computerSelection === "PAPER") {
-            outcome = "You lose!"
+            output.textContent = `You lose! Computer choose ${computerSelection} which beats ${playerSelection}`
+            computerScore++
         } else {
-            outcome = "You win!"
+            output.textContent = `You win! You choose ${playerSelection} which beats ${computerSelection}`
+            playerScore++
         }
     } else if (playerSelection === "PAPER") {
         if (computerSelection === "ROCK") {
-            outcome = "You win!"
+            output.textContent = `You win! You choose ${playerSelection} which beats ${computerSelection}`
+            playerScore++
         } else {
-            outcome = "You lose!"
+            output.textContent = `You lose! Computer choose ${computerSelection} which beats ${playerSelection}`
+            computerScore++
         }
     } else if (playerSelection === "SCISSORS") {
         if (computerSelection === "ROCK") {
-            outcome = "You lose!"
+            output.textContent = `You lose! Computer choose ${computerSelection} which beats ${playerSelection}`
+            computerScore++
         } else {
-            outcome = "You win!"
+            output.textContent = `You win! You choose ${playerSelection} which beats ${computerSelection}`
+            playerScore++
         }
     } else {
         outcome = "Please insert correct parameters"
     }
-    return outcome
-}*/
-
-const playRound = (playerSelection, computerSelection) => {
-    switch (playerSelection + computerSelection) {
-        case "SCISSORSPAPER":
-        case "ROCKSCISSORS":
-        case "PAPERROCK":
-            outcome = "You win"
-            playerScore++
-            break
-        case "PAPERSCISSORS":
-        case "SCISSORSROCK":
-        case "ROCKPAPER":
-            outcome = "You lose"
-            computerScore++
-            break
-        case "PAPERPAPER":
-        case "SCISSORSSCISSORS":
-        case "ROCKROCK":
-            outcome = "Draw"
-            break
-        default:
-            outcome = "Please insert correct parameters"
-    }
-    return outcome
 }
 
-function checkInput(selection) {
-    if ((selection !== "ROCK") && (selection !== "PAPER") && (selection !== "SCISSORS")) {
-        alert("Please insert only rock, paper or scissors")
-    } else if ((selection == null) || (selection == undefined)) {
-        alert("Please insert only rock, paper or scissors")
-    } else {
-        return playRound(selection, getComputerChoice());
+function checkWinner () {
+    while (playerScore === 5 || computerScore === 5) {
+        declareWinner()
+        buttons.forEach(option => {
+            option.style.display = 'none';
+        })
+}
+}
+
+function declareWinner() {
+    if (playerScore === 5) {
+        result.textContent = "HOORAY~ You are the winner"
+        playerScore = 0
+        computerScore = 0
+    } else if (computerScore === 5) {
+        result.textContent = "Noob~ Try again"
+        playerScore = 0
+        computerScore = 0
     }
 }
 
-function game() {
-    for (let i = 0; i < 5; i++) {
-        let input = prompt("Select your weapon!", "");
-        playerSelection = input.toUpperCase();
-        const computerSelection = getComputerChoice();
-        console.log(checkInput(playerSelection));
-       
-    }
+function endGame () {
+    const resetBtn = document.querySelector('#reset');
+
+    resetBtn.addEventListener('click', () => {
+        window.location.reload();
+    })
 }
 
-function scoreTracker (playerScore, computerScore) {
-    if (playerScore > computerScore) {
-        console.log("Player wins");
-    } else {
-        console.log("Computer win!")
-    }
-}
-
-game()
-scoreTracker(playerScore, computerScore)
+endGame()
