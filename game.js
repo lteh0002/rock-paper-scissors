@@ -5,6 +5,10 @@ let playerScore = 0
 
 const playerResult = document.querySelector("#playerScore")
 const computerResult = document.querySelector("#computerScore")
+const playerImage = document.querySelector('.player')
+const playerText = document.querySelector('.playerChoice')
+const computerImage = document.querySelector('.AI')
+const computerText = document.querySelector('.AIChoice')
 const output = document.querySelector("#output")
 const result = document.querySelector("#result")
 
@@ -29,6 +33,30 @@ buttons.forEach((button) => {
         playerResult.textContent = `Your score: ${playerScore}`;
         computerResult.textContent = `Computer score: ${computerScore}`;
         checkWinner()
+
+        if (playerChoice === 'ROCK') {
+            playerText.innerHTML = playerChoice;
+            playerImage.src = "images/rock.png"
+        } else if (playerChoice === 'PAPER') {
+            playerText.innerHTML = playerChoice;
+            playerImage.src = "images/paper.png"
+        } else if (playerChoice === 'SCISSORS') {
+            playerText.innerHTML = playerChoice;
+            playerImage.src = "images/scissors.png"
+        }
+
+        if (computerChoice === 'ROCK') {
+            computerText.innerHTML = computerChoice;
+            computerImage.src = "images/rock.png"
+        } else if (computerChoice === 'PAPER') {
+            computerText.innerHTML = computerChoice;
+            computerImage.src = "images/paper.png"
+        } else if (computerChoice === 'SCISSORS') {
+            computerText.innerHTML = computerChoice;
+            computerImage.src = "images/scissors.png"
+        }
+
+
     })
 })
 
@@ -78,14 +106,15 @@ function checkWinner () {
 
 function declareWinner() {
     if (playerScore === 5) {
-        result.textContent = "HOORAY~ You are the winner"
+        result.textContent = "You are the winner! Congrats!"
         playerScore = 0
         computerScore = 0
     } else if (computerScore === 5) {
-        result.textContent = "Noob~ Try again"
+        result.textContent = "You lost! Try again"
         playerScore = 0
         computerScore = 0
     }
+    result.classList.add('finalOutcome')
 }
 
 function endGame () {
@@ -94,6 +123,8 @@ function endGame () {
     resetBtn.addEventListener('click', () => {
         window.location.reload();
     })
+
 }
 
 endGame()
+
